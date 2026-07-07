@@ -1,14 +1,16 @@
 from PIL import Image
-from ObjetoImagem import ObjetoImagem
+from .ObjetoImagem import ObjetoImagem
 
 class ListaImagens():
 
-    IMAGEM_PADRAO : ObjetoImagem = ObjetoImagem()
+    OBJ_IMAGEM_PADRAO : ObjetoImagem | None = None
 
-    LISTA : list = [IMAGEM_PADRAO]
+    LISTA : list = []
 
     def __init__(self):
-        pass
+        self.OBJ_IMAGEM_PADRAO = ObjetoImagem()
+        self.LISTA.append(self.OBJ_IMAGEM_PADRAO)
+
 
     def add_imagem(self, objimagem : ObjetoImagem | None = None):
         if not objimagem:
@@ -16,40 +18,30 @@ class ListaImagens():
         else:
             self.LISTA.append(objimagem)
 
-    def rm_imagem(self,index : int | None = None ):
+
+    def rm_imagem(self,index : int = -1 ):
 
         if len(self.LISTA) == 0:
             return
 
-        if index:
-            try:
-                self.LISTA.pop(index)
-            except Exception as e:
-                print(e)
-        else:
-            try:
-                self.LISTA.pop()
-            except Exception as e:
-                print(e)
+        try:
+            self.LISTA.pop(index)
+        except Exception as e:
+            print(e)
 
-    def up_imagem(self,index : int = 0,objimagem : ObjetoImagem | None = None):
+    def up_imagem(self,index : int = -1,objimagem : ObjetoImagem | None = None):
         
         if not objimagem:                
             self.LISTA[index] = ObjetoImagem()
         else:
             self.LISTA[index] = objimagem
 
-    def get_imagem(self,index : int = 0):
+    def get_objimagem(self,index : int = 0) -> ObjetoImagem | None : 
         
-        objeto = self.LISTA[index].OBJETO
-        print(objeto)
-        print(f'Imagem_path: {objeto['imagem_path']}')
-        objeto['imagem'].show()
+        if self.LISTA[index]:
+            return self.LISTA[index]
+        
 
         
 
     
-
-minha_lista = ListaImagens()
-minha_lista.up_imagem()
-minha_lista.get_imagem()
