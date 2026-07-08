@@ -1,6 +1,6 @@
 from __future__ import annotations
 from PIL import Image, ImageDraw
-from MachineForm import MachineForm
+from .MachineForm import MachineForm
 
 
 class MachineDraw():
@@ -13,17 +13,19 @@ class MachineDraw():
 
     DADOS : MachineForm = None
 
-    MAPA_DADOS : dict[MachineForm] = None
+    MAPA_DADOS : dict[str,str] = None
 
 
     # CRIA O FORMULARIO COM OS VALORES PADRÃO
-    def __init__(self):
+    def __init__(self, dados_form : MachineForm = MachineForm()):
         
-        self.DADOS = MachineForm()
+        self.DADOS = dados_form
 
-        self.setDados(None)
+        self.setDados(dados_form)
 
         self.IMAGEM_DADOS = Image.new('RGB',(self.LARGURA,self.ALTURA),color='white')
+
+        self.update_dados()
 
         
     def getDados(self):
@@ -78,17 +80,6 @@ class MachineDraw():
     
 
 
-meu_form = MachineDraw()
-dados = meu_form.DADOS
-dados.EQUIPAMENTO = 'RETROESCAVADEIRA'
-dados.PATRIMONIO = 'N3089609'
-dados.HORA = '12:00'
-dados.OPERADOR = 'LUCAS'
-dados.OBRA = 'LOG'
-dados.MECANICO = 'INDIO'
-dados.DATA = '30/09/2026'
-meu_form.update_dados()
-meu_form.ver()
 
         
     

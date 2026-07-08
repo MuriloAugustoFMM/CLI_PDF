@@ -1,7 +1,7 @@
 from PIL import Image
 class ObjetoImagem():
 
-    OBJETO : dict[str,Image.Image] | None = None
+    OBJETO : dict[str | None, Image.Image| None] = [None,None]
     
     PATH_PADRAO = './lista_imagens/default_imagem$$.jpg'
 
@@ -30,6 +30,8 @@ class ObjetoImagem():
             self.OBJETO = {'imagem': self.IMAGEM_PADRAO, 'imagem_path' : self.PATH_PADRAO}
 
 
-    def get_imagem(self):
+    def get_imagem(self)-> Image.Image | None:
         if self.OBJETO['imagem']:
             return self.OBJETO['imagem']
+
+        return None
