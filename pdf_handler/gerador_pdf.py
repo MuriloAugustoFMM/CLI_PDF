@@ -19,7 +19,7 @@ def gerar_pdf(obj_lista_imagens : ListaImagens| None = None,formulario : Machine
     lista_imagens = obj_lista_imagens.LISTA_IMAGENS
     imagem_head = formulario.getImagem()
 
-    nome_arquivo = formulario.DADOS.PATRIMONIO + formulario.DADOS.DATA
+    nome_arquivo = formulario.DADOS.PATRIMONIO +'-'+ formulario.DADOS.DATA
     save_path += f'/{nome_arquivo}.pdf'
 
     for image in lista_imagens:
