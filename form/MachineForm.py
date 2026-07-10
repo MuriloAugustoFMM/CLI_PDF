@@ -7,7 +7,7 @@ class MachineForm():
     OBRA: str  = ''
     MECANICO: str = ''
     DATA: str = ''
-            
+         
 
     MOCK_DADOS = {
         'EQUIPAMENTO' : 'RETROESCAVADEIRA',
@@ -19,9 +19,10 @@ class MachineForm():
     }
 
     def __init__(self):
-        self.EQUIPAMENTO = self.MOCK_DADOS['EQUIPAMENTO']
-        self.PATRIMONIO = self.MOCK_DADOS['PATRIMONIO']
-        self.HORA = self.MOCK_DADOS['HORA']
-        self.OPERADOR = self.MOCK_DADOS['OPERADOR']
-        self.MECANICO = self.MOCK_DADOS['MECANICO']
-        self.DATA = self.MOCK_DADOS['DATA']
+        #self.EQUIPAMENTO = self.MOCK_DADOS['EQUIPAMENTO']
+        #self.PATRIMONIO = self.MOCK_DADOS['PATRIMONIO']
+        #self.HORA = self.MOCK_DADOS['HORA']
+        #self.OPERADOR = self.MOCK_DADOS['OPERADOR']
+        #self.MECANICO = self.MOCK_DADOS['MECANICO']
+        #self.DATA = self.MOCK_DADOS['DATA']
+        pass

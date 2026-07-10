@@ -1,5 +1,7 @@
 import os
 from pasta_handler import upload_pasta_imagens
+from form import form_modelo
+from CLI import form_interface
 from form.MachineDraw import MachineDraw
 from form.MachineForm import MachineForm
 import os
@@ -8,45 +10,41 @@ from pdf_handler import gerador_pdf
 
 def interface_menu_principal():
     
-    MENU_ERROR = '' 
     MENU_OPTS = ['1','2','3']
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
         comando : int | None = None
-        if MENU_ERROR :
-            print(f"Erro: !!! {MENU_ERROR} !!!\n")
         print("""Digite o comando desejado:
             (1) = Novo PDF
             (2) = Configurações
             (3) = Sair""")
         
         comando = input()
-        MENU_ERROR = ''
-
+        
         if comando not in MENU_OPTS:
-            MENU_ERROR = 'COMANDO NÃO RECONHECIDO'
+            print('status da operação: COMANDO NÃO RECONHECIDO')
+            input('PRESSIONE ENTER PARA CONTINUAR')
             continue
             
         if comando == MENU_OPTS[0]:
 
             form_img = interface_set_formulario()
-            if form_img == None:
-                MENU_ERROR = 'FORMULARIO CANCELADO'
+            if form_img != MachineDraw:
+                print(f'status da operação: {form_img}')
+                input('PRESSIONE ENTER PARA CONTINUAR')
+                continue
+            else:
+                print(f'status da operação: formulario criado com sucesso')
+                input('PRESSIONE ENTER PARA CONTINUAR')
                 continue
 
             lista_imagens = interface_updload_imagem()
-            if type(lista_imagens) == str :
-                MENU_ERROR = lista_imagens
-                continue
-            if  len(lista_imagens.LISTA) == 1 :
-                MENU_ERROR = 'LISTA DE IMAGENS VAZIA'
-                continue
 
             gerador_pdf.gerar_pdf(lista_imagens,form_img)
             print('pdf_criado')
             continue
         elif comando == MENU_OPTS[1]:
-            pass
+            interface_config()
 
         else:
             print('Programa encerrado')
@@ -54,13 +52,56 @@ def interface_menu_principal():
 
 
 def interface_config():
-    CONFIG_OPTS = ['1','2']
-    print("""Escolha a opção:
-          (1) = DEFINIR PASTA PADRAO
-          (2) = VOLTAR""")
+    while True:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        CONFIG_OPTS = ['1','2','3']
+        print("""Escolha a opção:
+            (1) = DEFINIR PASTA PADRAO
+            (2) = DEFINIR OPÇÕES DO FORMULARIO
+            (3) = VOLTAR""")
+        
+        comando = input()
 
+        if comando not in CONFIG_OPTS:
+            print('status da operação: COMANDO INVÁLIDO')
+            input('PRESSIONE ENTER PARA PROSSEGUIR')
+            continue
 
-def interface_set_formulario() -> MachineDraw | None:
+        if comando == CONFIG_OPTS[0]:
+            caminho = input('Digite o caminho:\n\n-->  ')
+            res = upload_pasta_imagens.set_pasta_padrao(caminho)                
+            print(f'status da operação: {res}')
+            input('PRESSIONE ENTER PARA PROSSEGUIR:')
+            continue
+
+        elif comando == CONFIG_OPTS[1]:
+            interface_def_form()
+        elif comando == CONFIG_OPTS[2]:
+            return
+        
+
+def interface_def_form():
+    while True:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print("""Selecione qual campo definir os valores do formulário:
+            (1) EQUIPAMENTO
+            (2) PATRIMONIO
+            (3) HORIMETRO
+            (4) MECANICO
+            (5) OBRA
+            (6) OPERADOR""")
+        
+        comando = input()
+
+        if comando == '1':
+            os.system('cls' if os.name == 'nt' else 'clear')
+            
+            print(form_interface.INTERFACE_OPC_FORM)
+            sub_comando = input()
+            form_interface.FUNCTIONS_OPTS[int(comando)-1][int(sub_comando)-1]()
+    #mostrar opções de edicao
+
+def interface_set_formulario() -> MachineDraw | str:
     FORM_OPTS = ['1','2','4','5','6','7','8','9']
     dados_form = MachineForm()
     while True:
@@ -108,7 +149,7 @@ def interface_set_formulario() -> MachineDraw | None:
             dados_form.OPERADOR = input('Digite o nome do operador:\n\n-->  ')
 
         elif comando == FORM_OPTS[6]:
-            return None
+            return 'FORMULARIO CANCELADO'
 
         elif comando == FORM_OPTS[7]:
             img_formulario = MachineDraw(dados_form)
@@ -132,23 +173,34 @@ def interface_updload_imagem():
         lista_imagens = []
 
         os.system('cls' if os.name == 'nt' else 'clear')
-
+        caminho = ''
         if comando not in UPLOAD_OPTS:
-            print('COMANDO NÃO RECONHECIDO')
+            print('status operação: COMANDO NÃO RECONHECIDO')
+            input('PRESSIONE ENTER PARA PROSSEGUIR')
             continue
         
         if comando == UPLOAD_OPTS[0]:
-            pasta_padrao = upload_pasta_imagens.get_pasta_padrao()
-
-            lista_imagens = upload_pasta_imagens.upload_Images(pasta_padrao)
+            
+            caminho = upload_pasta_imagens.get_pasta_padrao()
 
         elif comando == UPLOAD_OPTS[1]:
 
             print("""Informe o caminho da pasta de imagens:""")
             caminho = input()
 
+        try:
             lista_imagens = upload_pasta_imagens.upload_Images(caminho)
-                
+
+        except FileNotFoundError:
+                print(f'status da operação: {FileNotFoundError}')
+                input('PRESSIONE ENTER PARA PROSSEGUIR')
+                continue
+        
+        except Exception:
+            print(f'status da operação:{Exception}')
+            input('PRESSIONE ENTER PARA PROSSEGUIR')
+            continue
+        
         return lista_imagens
 
 

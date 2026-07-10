@@ -16,6 +16,11 @@ class ListaImagens():
 
 
     def add_objimagem(self, objimagem : ObjetoImagem | None = None, img_path : str | None = None):
+
+        if self.LISTA[0] == self.OBJ_IMAGEM_PADRAO:
+            self.rm_imagem(0)
+            self.LISTA_IMAGENS.pop(0)
+
         if not objimagem and img_path:
             novo_objimagem = ObjetoImagem(imagem_path=img_path)
             self.LISTA.append(novo_objimagem)
@@ -36,10 +41,10 @@ class ListaImagens():
         except Exception as e:
             print(e)
 
-    def up_imagem(self,index : int = -1,objimagem : ObjetoImagem | None = None):
+    def up_imagem(self,index : int = -1,objimagem : ObjetoImagem | None = None, img_path : str =''):
         
-        if not objimagem:               
-            novo_objimagem = ObjetoImagem()
+        if not objimagem and img_path:               
+            novo_objimagem = ObjetoImagem(imagem_path=img_path)
             self.LISTA[index] = novo_objimagem
             self.LISTA_IMAGENS[index] = novo_objimagem.get_imagem()
         else:

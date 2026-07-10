@@ -28,34 +28,43 @@ def upload_Images(image_path : str = DEFAULT_FOLDER)-> ListaImagens | None:
                 arquivo_zip.extractall(f'{image_path.replace('.zip','')}')
                 arquivo_zip.close()
                 #os.remove(image_path)
-        except FileNotFoundError as error:
+        except FileNotFoundError:
             
-            return f'ARQUIVO NAO ENCONTRATO: {error}'
+            raise FileNotFoundError('ARQUIVO ZIP NAO ENCONTRADO')
             
         image_path = image_path.replace('.zip','')
     
     if os.path.isdir(image_path):
+
         lista_imagens = os.listdir(image_path)
-        
-        for image in lista_imagens:
+
+        for i,image in enumerate(lista_imagens):
+
             img_path = '/'.join([image_path,image])
+            if i == 0:
+                imagens_lista.up_imagem(0,img_path=img_path)
+                continue
             imagens_lista.add_objimagem(img_path=img_path)   
-        print('\n---LISTA CRIADA COM SUCESSO!---\n')
+
+        if len(imagens_lista) < 1:
+            raise Exception('PASTA VAZIA')
+        
     
     return imagens_lista      
 
 
 
-def set_pasta_padrao(pasta_path : str ):
+def set_pasta_padrao(pasta_path : str ) -> str:
     pasta_path = pasta_path.replace('"','').replace("'",'')
 
     if not os.path.isdir(pasta_path):
-        print("DIRETORIO NAO ENCONTRADO")
-        return
+        return 'DIRETORIO NAO ENCONTRADO'
+    
     with open(DEFAULT_FOLDER_FILE, 'w') as f:
         f.write(pasta_path)  
         f.close()    
 
+    return 'CAMINHO PADRAO DEFINIDO COM SUCESSO!'
 
 def update_pasta_padrao():
     with open(DEFAULT_FOLDER_FILE,'r') as f:
