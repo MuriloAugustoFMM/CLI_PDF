@@ -46,7 +46,7 @@ def upload_Images(image_path : str = DEFAULT_FOLDER)-> ListaImagens | None:
                 continue
             imagens_lista.add_objimagem(img_path=img_path)   
 
-        if len(imagens_lista) < 1:
+        if len(imagens_lista.LISTA_IMAGENS) < 1:
             raise Exception('PASTA VAZIA')
         
     

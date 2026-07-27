@@ -29,14 +29,14 @@ def interface_menu_principal():
         if comando == MENU_OPTS[0]:
 
             form_img = interface_set_formulario()
-            if form_img != MachineDraw:
-                print(f'status da operação: {form_img}')
+            if type(form_img) != MachineDraw:
+                print(f'status da operação: ERRO AO CRIAR FORMULARIO')
                 input('PRESSIONE ENTER PARA CONTINUAR')
                 continue
             else:
                 print(f'status da operação: formulario criado com sucesso')
                 input('PRESSIONE ENTER PARA CONTINUAR')
-                continue
+            
 
             lista_imagens = interface_updload_imagem()
 
@@ -89,16 +89,36 @@ def interface_def_form():
             (3) HORIMETRO
             (4) MECANICO
             (5) OBRA
-            (6) OPERADOR""")
-        
-        comando = input()
+            (6) OPERADOR
+            (7) VOLTAR""")
+        comando : int
+        try: 
+            comando = int(input())
 
-        if comando == '1':
-            os.system('cls' if os.name == 'nt' else 'clear')
+        except Exception as e :
+            print(e)
+
+        if comando > 7 or comando < 0 :
+            print('COMANDO NÃO EXISTENTE')
+            input('PRESSIONE ENTER PARA PROSSEGUIR:')
+            continue
+
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print(form_interface.INTERFACE_OPC_FORM)    
+        try:
+
+            sub_comando = int(input())
+
+        except Exception as e:
+            print(e)
+
+        os.system('cls' if os.name == 'nt' else 'clear')
+        if comando == 7:
+            return
+        else:
+            form_interface.FUNCTIONS_OPTS[comando-1][sub_comando-1]()
             
-            print(form_interface.INTERFACE_OPC_FORM)
-            sub_comando = input()
-            form_interface.FUNCTIONS_OPTS[int(comando)-1][int(sub_comando)-1]()
+
     #mostrar opções de edicao
 
 def interface_set_formulario() -> MachineDraw | str:
@@ -196,10 +216,6 @@ def interface_updload_imagem():
                 input('PRESSIONE ENTER PARA PROSSEGUIR')
                 continue
         
-        except Exception:
-            print(f'status da operação:{Exception}')
-            input('PRESSIONE ENTER PARA PROSSEGUIR')
-            continue
         
         return lista_imagens
 

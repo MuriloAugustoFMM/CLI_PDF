@@ -4,16 +4,9 @@ INTERFACE_OPC_FORM = """
     SELECIONE A OPCAO:
     (1) = ADICIONAR REGISTRO
     (2) = REMOVER REGISTRO
-    (3) = ALTERAR REGISTRO 
+    (3) = ALTERAR REGISTRO
+    (4) = VER REGISTROS 
     (4) = VOLTAR"""
-
-
-
-
-
-
-FUNCTIONS_OPTS = [[form_modelo.add_equipamento, form_modelo.rm_equipamento]]
-
 
 
 def mostrar_equipamentos():
@@ -21,17 +14,14 @@ def mostrar_equipamentos():
     #mostrar lista com as opções do tipo
     equipamentos = form_modelo.get_equipamentos()
     for eq in equipamentos:
-        eq_interface += f'-> {eq} <-'
+        eq_interface += f'-> {eq} <-\n'
 
-    return eq_interface
+    print(eq_interface)
+    input('PRESSIONE ENTER PARA PROSSEGUIR')
 
 
-def estruc_eq():
-    string = ''
-    for eq in form_modelo.get_equipamentos():
-        string += f'-> {eq} <-'
+FUNCTIONS_OPTS = [
+    [form_modelo.add_equipamento, form_modelo.rm_equipamento, form_modelo.set_equipamento,mostrar_equipamentos]
 
-    return string
-
-INTERFACE_OPC_EQ : str = estruc_eq()
+    ]
 
