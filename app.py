@@ -5,7 +5,7 @@
 # -> FUNCAO PARA COLETAR DADOS DO EQUIPAMENTO
 # -> 
 
-from CLI.menu import interface_menu_principal
+from cli import run
 from db import controller
 
 
