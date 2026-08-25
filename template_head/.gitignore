@@ -1,0 +1,5 @@
+master_logo.png
+*.pdf
+*.png
+venv
+*venv
