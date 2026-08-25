@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <img id="logo_empresa " src="master_logo.png">
+    <h1>RELATORIO FOTOGRAFICO</h1>
+    <form class="form_eq">
+
+        <div class="campo_form">
+            <label for="equipamento">Equipamento:</label>
+            <input type="text" id="equipamento" name="equipamento" value="{{equipamento}}">
+        </div>
+
+        <div class="campo_form">
+            <label for="patrimonio">Patrimonio:</label>
+            <input type="text" id="patrimonio" name="patrimonio" value="{{patrimonio}}">
+        </div>
+
+        <div class="campo_form">
+            <label for="data">Data:</label>
+            <input type="datetime" id="data" name="data" value="{{data}}">
+        </div>
+
+        {%if operador%}
+        <div class="campo_form">
+            <label for="operador">Operador</label>
+            <input type="text" id="operador" name="operador" value="{{operador}}">
+        </div>
+        {%endif%}
+
+        {%if mecanico%}
+        <div class="campo_form">
+            <label for="mecanico">mecanico</label>
+            <input type="text" id="mecanico" name="mecanico" value="{{mecanico}}">
+        </div>
+        {%endif%}
+
+    </form>
+
+</body>
+</html>
