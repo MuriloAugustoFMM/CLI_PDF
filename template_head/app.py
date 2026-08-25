@@ -1,18 +1,22 @@
 from jinja2 import Environment, FileSystemLoader
-from weasyprint import HTML
-import datetime
+from playwright.sync_api import sync_playwright
 
-dados_mockados = {
-    'equipamento' : 'PERERÃO',
-    'patrimonio' : 'EXEMPLO_PATRIMONIO',
-    'data' : datetime.date.strftime(datetime.datetime.now(),"%d/%m/%Y, %H:%M:%S"),
-    'operador': 'EXEMPLO_OPERADOR',
-    'mecanico' : 'mecanico_exemplo'
-}
 
-env = Environment(loader=FileSystemLoader('.'))
-template = env.get_template('template.html')
 
-template_renderizado = template.render(dados_mockados)
 
-HTML(string=template_renderizado,base_url='.').write_pdf('relatorio_final.pdf')
+def create_head_image(data)-> str:
+    env = Environment(loader=FileSystemLoader('.'))
+    template = env.get_template('./template_head/template.html')
+
+    template_renderizado = template.render(data)
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch()
+        page = browser.new_page()
+        page.set_content(template_renderizado)
+        
+        page.screenshot(path='./template_head/head_image.png',full_page=True)
+        
+   
+        browser.close()
+    return './template_head/head_image.png'
