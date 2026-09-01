@@ -53,6 +53,7 @@ template_data = {
 }
 
 head_image = create_head_image(template_data)
+
 file_name = datetime.date.strftime(datetime.datetime.now(),'%d-%m-%Y-%H-%M-%S') + '.pdf'
 save_path =f'./resultados/'
 

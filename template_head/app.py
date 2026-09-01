@@ -12,7 +12,11 @@ def create_head_image(data)-> str:
 
     with sync_playwright() as p:
         browser = p.chromium.launch()
-        page = browser.new_page()
+        context = browser.new_context(
+            viewport={"width": 1200, "height": 800},  # ajuste ao tamanho real do seu template
+            device_scale_factor=3,  # 2 ou 3 = qualidade "retina"
+        )
+        page = context.new_page()
         page.set_content(template_renderizado)
         
         page.screenshot(path='./template_head/head_image.png',full_page=True)
