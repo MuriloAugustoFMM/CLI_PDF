@@ -1,49 +1,14 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'global/css/style.css' %}">
-    <title>RELATORIO FOTOGRAFICO</title>
+    <title>Home</title>
 </head>
 <body>
-    <!--<img id="logo_empresa " src="master_logo.png">!-->
-    <h1>RELATORIO FOTOGRAFICO</h1>
-    <form class="form_eq">
-
-        <div class="campo_form">
-            <label for="equipamento">Equipamento:</label>
-            <input type="text" id="equipamento" name="equipamento" value="">
-        </div>
-
-        <div class="campo_form">
-            <label for="patrimonio">Patrimonio:</label>
-            <input type="text" id="patrimonio" name="patrimonio" value="">
-        </div>
-
-        <div class="campo_form">
-            <label for="data">Data:</label>
-            <input type="datetime" disabled id="data" name="data" value="">
-        </div>
-
-        
-        <div class="campo_form">
-            <label for="operador">Operador</label>
-            <input type="text" id="operador" name="operador" value="">
-        </div>
-       
-
-        
-        <div class="campo_form">
-            <label for="mecanico">mecanico</label>
-            <input type="text" id="mecanico" name="mecanico" value="{{mecanico}}">
-        </div>
-        
-
-        <button type="submit">ENVIAR</button>
-
-    </form>
-
+    <div class="menu">
+        <button class="button" id="botao_criar">CRIAR RELATORIO</button>
+        <button class="button" id="botao_buscar">BUSCAR RELATORIO</button>
+    </div>
 </body>
 </html>
