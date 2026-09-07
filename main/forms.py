@@ -1,11 +1,17 @@
 from django import forms
 
-class NameForm(forms.Form):
-    your_name = forms.CharField(label='your name', max_length=100)
+class RelatorioFotografico(forms.Form):
     
-    '''
-    def is_valid(self):
-        print(self.cleaned_data)
-        super().is_valid()
-        print(self.cleaned_data)
-    '''
+    authors_name = forms.CharField(max_length=50, required=True,)
+    
+    machine = forms.CharField(max_length=100,required=True)
+    
+    machine_id = forms.CharField(max_length=40, required=True)
+    machine_id_photo = forms.ImageField(required=True)
+    
+    
+    machine_metric = forms.CharField(max_length=40,required=True)
+    machine_metric_photo = forms.ImageField(required=True)    
+    
+    
+    
